@@ -1,4 +1,5 @@
 const express = require("express");
+
 const router = express.Router();
 
 const Incident = require("../mongoose/models/Incident");
@@ -12,8 +13,17 @@ router.get("/", async function (req, res, next) {
 
 router.post("/", function (req, res, send) {
   console.log("-----------------------------------------------------------------------------------------------");
-  console.log(req);
-  let newIncident = new Incident(req.body);
+  console.log(req.body);
+  console.log("-----------------------------------------------------------------------------------------------");
+  let newIncident = new Incident({
+    name:req.body.name,
+    description:req.body.description,
+    serverity:req.body.serverity,
+    priority:req.body.priority,
+    reportedby:req.body.reportedby,
+    assignedTo:req.body.assignedTo
+  });
+  console.log(newIncident);
   newIncident.save().then(() => {
     res.sendStatus(200);
   });

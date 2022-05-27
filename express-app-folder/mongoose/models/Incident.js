@@ -5,12 +5,30 @@ const modelName = "Incident";
 const { Schema } = mongoose;
 
 const schema = new Schema({
-  name: String, // String is shorthand for {type: String}
-  description: String,
-  serverity: String,
-  priority: String,
-  reportedby: String,
-  assignedTo: String
+  name:{
+    type:String, 
+    required: true
+},
+description:{
+    type:String,
+    required: true
+},
+serverity:{
+    type:String,
+    required: true
+},
+priority:{
+    type:String,
+    required: true
+},
+reportedby:{
+    type:String,
+    required: true
+},
+assignedTo:{
+    type:String,
+    required: true
+}
 });
 
 const Incident = mongoose.model(modelName, schema);

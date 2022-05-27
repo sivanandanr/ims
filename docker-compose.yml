@@ -1,14 +1,21 @@
 services:
-  react-app:
-    container_name: react-app-container-name
-    build: ./react-ims
-    # volumes:
-    #   - ./react-app-folder:/app
+  # react-app:
+  #   container_name: react-app-container-name
+  #   build: ./react-ims
+  #   # volumes:
+  #   #   - ./react-app-folder:/app
+  #   ports:
+  #     - "3000:3000"
+  #   depends_on:
+  #     - express-app
+  imsmongodb:
+    container_name: mongodb-container-name
+    # use specific mongo verion in production
+    image: mongo:latest
+    volumes:
+      - ./db:/data/db
     ports:
-      - "3000:3000"
-    depends_on:
-      - express-app
-
+      - "27017:27017"
   express-app:
     container_name: express-app-container-name
     build: ./express-app-folder
@@ -17,15 +24,8 @@ services:
     ports:
       - "8080:8080"
     depends_on:
-      - mongodb
+      - imsmongodb
     links:
-      - mongodb
+      - imsmongodb
 
-  mongodb:
-    container_name: mongodb-container-name
-    # use specific mongo verion in production
-    image: mongo:latest
-    volumes:
-      - ./db:/data/db
-    ports:
-      - "27017:27017"
+  
